@@ -1,5 +1,5 @@
 import React from "react";
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import { Flex, Heading } from "@chakra-ui/react";
 import { EventCard } from "../components/UI/Eventcard";
 
@@ -19,7 +19,11 @@ export const EventsPage = () => {
       <Heading>List of events</Heading>
       <Flex gap={5}>
         {events.map((event) => {
-          return <EventCard event={event} key={event.id} />;
+          return (
+            <Link to={`/event/${event.id}`} key={event.id}>
+              <EventCard event={event} key={event.id} />
+            </Link>
+          );
         })}
       </Flex>
       <br />
