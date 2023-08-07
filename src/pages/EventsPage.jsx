@@ -1,6 +1,6 @@
 import React from "react";
 import { useLoaderData } from "react-router-dom";
-import { Heading } from "@chakra-ui/react";
+import { Flex, Heading } from "@chakra-ui/react";
 import { EventCard } from "../components/UI/Eventcard";
 
 export const loader = async () => {
@@ -17,17 +17,15 @@ export const EventsPage = () => {
   return (
     <>
       <Heading>List of events</Heading>
-
-      <div>
-        <EventCard />
-
-        <br />
-
-        <button>Add event</button>
-
-        <input type="text" placeholder="search here for name" />
-        <input type="text" placeholder="search here per category" />
-      </div>
+      <Flex gap={5}>
+        {events.map((event) => {
+          return <EventCard event={event} key={event.id} />;
+        })}
+      </Flex>
+      <br />
+      <button>Add event</button>
+      <input type="text" placeholder="search here for name" />
+      <input type="text" placeholder="search here per category" />
     </>
   );
 };
