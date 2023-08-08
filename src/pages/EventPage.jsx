@@ -9,9 +9,8 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { useLoaderData, Link } from "react-router-dom";
-import { EventsContext } from "../Context";
-import { useContext } from "react";
 import { UserCard } from "../components/UI/UserCard";
+import { CategoryCard } from "../components/UI/CategoryCard";
 
 export const loader = async ({ params }) => {
   const event = await fetch(`http://localhost:3000/events/${params.eventId}`);
@@ -22,20 +21,10 @@ export const loader = async ({ params }) => {
 
 export const EventPage = () => {
   const { event } = useLoaderData();
-  const { categories } = useContext(EventsContext);
 
   const date = event.startTime.split("T")[0];
   const start = event.startTime.split("T")[1].slice(0, 5);
   const end = event.endTime.split("T")[1].slice(0, 5);
-
-  let categoryList = [];
-  event.categoryIds.map((id) => {
-    categories.map((category) => {
-      if (category.id === id) {
-        categoryList.push(category.name);
-      }
-    });
-  });
 
   return (
     <Card variant="filled" padding={1} size="md" maxW="md" align="center">
@@ -46,17 +35,13 @@ export const EventPage = () => {
 
       <CardBody>
         <Image src={event.image} alt={event.title} boxSize="xs" />
-        <p>"{event.description}"</p>
+        <p>{event.description}</p>
         <br />
         <p>Start time: {start}</p>
         <p>End time: {end}</p>
         <p>Location: {event.location}</p>
         <br />
-        {categoryList.length > 1 ? (
-          <p>Categories: {categoryList.join(" - ")} </p>
-        ) : (
-          <p>Category: {categoryList}</p>
-        )}
+        <CategoryCard event={event} />
         <UserCard userId={event.createdBy} />
       </CardBody>
 
