@@ -5,7 +5,8 @@ import { EventPage, loader as eventLoader } from "./pages/EventPage";
 import { EventsPage, loader as eventsLoader } from "./pages/EventsPage";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Root, loader as contextLoader } from "./components/Root";
-import { AddEvent } from "./components/UI/AddEvent";
+// import { AddEvent } from "./components/UI/AddEvent";
+import { NewEvent, action as newEvent } from "./components/UI/NewEvent";
 
 const router = createBrowserRouter([
   {
@@ -26,7 +27,8 @@ const router = createBrowserRouter([
       },
       {
         path: "/new",
-        element: <AddEvent />,
+        element: <NewEvent />,
+        action: newEvent,
       },
     ],
   },
