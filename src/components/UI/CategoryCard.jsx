@@ -5,8 +5,17 @@ import { Flex } from "@chakra-ui/react";
 export const CategoryCard = ({ event }) => {
   const { categories } = useContext(EventsContext);
 
+  // Convert the categoryId from added events to a  number and push them to an array to keep the data in the same format
+  let eventCategoryIdList = [];
+  if (typeof event.categoryIds === "string") {
+    eventCategoryIdList.push(Number(event.categoryIds));
+  } else {
+    eventCategoryIdList = event.categoryIds;
+  }
+
+  // Retrieve matching category names for the id's so we can display them later
   let categoryList = [];
-  event.categoryIds.map((id) => {
+  eventCategoryIdList.map((id) => {
     categories.map((category) => {
       if (category.id === id) {
         categoryList.push(category.name);
@@ -27,4 +36,5 @@ export const CategoryCard = ({ event }) => {
       </Flex>
     );
   }
+  // }
 };
