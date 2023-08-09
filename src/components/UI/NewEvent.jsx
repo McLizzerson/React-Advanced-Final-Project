@@ -24,24 +24,46 @@ export const NewEvent = () => {
       Fill in the information about your event below.
       <Form method="post" id="new-event-form">
         <Stack spacing={3}>
-          <Input placeholder="Event title" type="text" name="title" />
-          <Input placeholder="Description" type="text" name="description" />
-          <Input placeholder="Image url" type="url" name="image" />
+          <Input
+            placeholder="Event title"
+            type="text"
+            name="title"
+            required="required"
+          />
+          <Input
+            placeholder="Description"
+            type="text"
+            name="description"
+            required="required"
+          />
+          <Input
+            placeholder="Image url"
+            type="url"
+            name="image"
+            required="required"
+          />
           <Input
             type="datetime-local"
             variant="outline"
             placeholder="Start time"
             name="startTime"
+            required="required"
           />
           <Input
             type="datetime-local"
             variant="outline"
             placeholder="End time"
             name="endTime"
+            required="required"
           />
-          <Input placeholder="Location" type="text" name="location" />
+          <Input
+            placeholder="Location"
+            type="text"
+            name="location"
+            required="required"
+          />
 
-          <Select placeholder="Category" name="categoryIds">
+          <Select placeholder="Category" name="categoryIds" required="required">
             {categories.map((category) => {
               return (
                 <option value={category.id} key={category.id} type="number">
@@ -51,7 +73,11 @@ export const NewEvent = () => {
             })}
           </Select>
 
-          <Select placeholder="Select user" name="createdBy">
+          <Select
+            placeholder="Select user"
+            name="createdBy"
+            required="required"
+          >
             {users.map((user) => {
               return (
                 <option value={user.id} key={user.id} type="number">
