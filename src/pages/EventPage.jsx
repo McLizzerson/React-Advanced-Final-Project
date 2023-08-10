@@ -11,6 +11,7 @@ import {
 import { useLoaderData, Link } from "react-router-dom";
 import { UserCard } from "../components/UI/UserCard";
 import { CategoryCard } from "../components/UI/CategoryCard";
+import { DeleteEvent } from "../components/UI/DeleteEvent";
 
 export const loader = async ({ params }) => {
   const event = await fetch(`http://localhost:3000/events/${params.eventId}`);
@@ -47,7 +48,9 @@ export const EventPage = () => {
 
       <CardFooter>
         <Button>Edit</Button>
-        <Button>Delete</Button>
+
+        <DeleteEvent event={event} />
+
         <Link to="/">
           <Button>Home</Button>
         </Link>
