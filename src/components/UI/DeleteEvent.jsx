@@ -31,8 +31,8 @@ export const DeleteEvent = ({ event }) => {
     switch (status) {
       case 200:
         toast({
-          title: "Event deleted",
-          description: "Your event was deleted succesfully!",
+          title: "Success!",
+          description: "Your event was deleted succesfully",
           status: "success",
           duration: 3000,
           isClosable: true,

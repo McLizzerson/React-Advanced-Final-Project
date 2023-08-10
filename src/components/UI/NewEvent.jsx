@@ -95,8 +95,8 @@ export const NewEvent = () => {
           variant="ghost"
           onClick={() =>
             toast({
-              title: "Event added",
-              description: "Your event was added succesfully!",
+              title: "Success!",
+              description: "Your event was added succesfully",
               status: "success",
               duration: 3000,
               isClosable: true,
