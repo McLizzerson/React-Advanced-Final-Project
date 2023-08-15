@@ -15,7 +15,7 @@ export const DeleteEvent = ({ event }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   let toast = useToast();
 
-  // the action of deleting an event
+  // delete event
   const deleteEvent = async () => {
     const response = await fetch(`http://localhost:3000/events/${event.id}`, {
       method: "DELETE",
@@ -24,7 +24,7 @@ export const DeleteEvent = ({ event }) => {
     return deletingStatus;
   };
 
-  // handling the deletion and sending a toast with the response status
+  // handle delete and send toast with the response status
   const handleDelete = async () => {
     const status = await deleteEvent();
 
