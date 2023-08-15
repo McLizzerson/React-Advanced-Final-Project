@@ -4,13 +4,9 @@ import { Flex, Image } from "@chakra-ui/react";
 
 export const UserCard = ({ userId }) => {
   const { users } = useContext(EventsContext);
-  console.log(users);
-
   const user = users.filter((user) => {
-    return user.id === userId;
+    return user.id === Number(userId);
   });
-
-  console.log(user[0].name);
 
   return (
     <Flex direction="row" align="center" gap={4}>
