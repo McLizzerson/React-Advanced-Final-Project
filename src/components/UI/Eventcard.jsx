@@ -6,15 +6,16 @@ export const EventCard = ({ event }) => {
   const start = event.startTime.split("T")[1].slice(0, 5);
   const end = event.endTime.split("T")[1].slice(0, 5);
   return (
-    <Card variant="filled" padding={1} align="center">
-      <Heading>{event.title}</Heading>
-      <p>{date}</p>
+    <Card variant="filled" paddingBottom={4} align="center">
+      <Heading padding={4}>{event.title}</Heading>
+
       <Image src={event.image} alt={event.title} boxSize="xs" />
       <p>{event.description}</p>
       <br />
-
-      <p>Start time: {start}</p>
-      <p>End time: {end}</p>
+      <p>📅 {date}</p>
+      <p>
+        🕑 {start} - {end}
+      </p>
       <br />
       <CategoryCard event={event} />
     </Card>
