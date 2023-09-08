@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { EventsContext } from "../../Context";
-import { Flex, Image } from "@chakra-ui/react";
+import { Flex, Heading, Image } from "@chakra-ui/react";
 
 export const UserCard = ({ userId }) => {
   const { users } = useContext(EventsContext);
@@ -17,8 +17,8 @@ export const UserCard = ({ userId }) => {
         boxSize="100px"
       />
       <div>
-        <p>Event created by: </p>
-        <p>{user[0].name}</p>
+        <p>Event created by </p>
+        <Heading fontSize="3xl">{user[0].name}</Heading>
       </div>
     </Flex>
   );
