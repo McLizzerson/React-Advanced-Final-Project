@@ -7,9 +7,13 @@ export const EventCard = ({ event }) => {
   const end = event.endTime.split("T")[1].slice(0, 5);
   return (
     <Card variant="filled" paddingBottom={4} align="center">
+      <Image
+        src={event.image}
+        alt={event.title}
+        boxSize="xs"
+        borderTopRadius={6}
+      />
       <Heading padding={4}>{event.title}</Heading>
-
-      <Image src={event.image} alt={event.title} boxSize="xs" />
       <p>{event.description}</p>
       <br />
       <p>📅 {date}</p>
