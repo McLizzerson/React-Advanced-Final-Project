@@ -1,8 +1,10 @@
 import React from "react";
 import { Outlet, useLoaderData } from "react-router-dom";
 import { Navigation } from "./Navigation";
-import { Box } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import { EventsContext } from "../Context";
+import "@fontsource/pacifico";
+import "@fontsource/open-sans";
 
 export const loader = async () => {
   const users = await fetch("http://localhost:3000/users");
@@ -18,11 +20,17 @@ export const Root = () => {
   const { users, categories } = useLoaderData();
 
   return (
-    <Box>
-      <Navigation />
+    <Flex
+      bgImage="../images/Gradient-Mesh-11.jpg"
+      bgRepeat="no-repeat"
+      bgAttachment="fixed"
+      bgPosition="center"
+      height="100vh"
+    >
+      {/* <Navigation /> */}
       <EventsContext.Provider value={{ users, categories }}>
         <Outlet />
       </EventsContext.Provider>
-    </Box>
+    </Flex>
   );
 };
