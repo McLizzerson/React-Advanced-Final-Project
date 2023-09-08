@@ -25,7 +25,6 @@ export const Root = () => {
       bgRepeat="no-repeat"
       bgAttachment="fixed"
       bgPosition="center"
-      height="100vh"
     >
       {/* <Navigation /> */}
       <EventsContext.Provider value={{ users, categories }}>
