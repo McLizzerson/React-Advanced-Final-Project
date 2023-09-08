@@ -1,11 +1,11 @@
 import { useContext } from "react";
 import { EventsContext } from "../../Context";
-import { Flex } from "@chakra-ui/react";
+import { Flex, Tag } from "@chakra-ui/react";
 
 export const CategoryCard = ({ event }) => {
   const { categories } = useContext(EventsContext);
 
-  // Convert the categoryId from added events to a  number and push them to an array to keep the data in the same format
+  // Convert categoryId from added events to a number and push them to an array to keep the data in the same format
   let eventCategoryIdList = [];
   if (typeof event.categoryIds === "string") {
     eventCategoryIdList.push(Number(event.categoryIds));
@@ -23,18 +23,22 @@ export const CategoryCard = ({ event }) => {
     });
   });
 
-  if (categoryList.length > 1) {
-    return (
-      <Flex>
-        <p>Categories: {categoryList.join(" - ")}</p>
-      </Flex>
-    );
-  } else {
-    return (
-      <Flex>
-        <p>Category: {categoryList}</p>
-      </Flex>
-    );
-  }
-  // }
+  return (
+    <Flex gap={4}>
+      {categoryList.map((category) => {
+        return (
+          <Tag
+            key={category}
+            size="md"
+            variant="outline"
+            color="black"
+            align="center"
+            textAlign="center"
+          >
+            {category}
+          </Tag>
+        );
+      })}
+    </Flex>
+  );
 };
