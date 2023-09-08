@@ -60,7 +60,9 @@ export const DeleteEvent = ({ event }) => {
 
   return (
     <>
-      <Button onClick={onOpen}>Delete</Button>
+      <Button size="sm" onClick={onOpen}>
+        Delete
+      </Button>
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
