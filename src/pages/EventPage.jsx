@@ -27,19 +27,29 @@ export const EventPage = () => {
         justify="center"
         direction="column"
         maxW="40vw"
-        paddingTop={4}
         paddingBottom={4}
         gap={4}
         borderRadius={10}
       >
+        <Image
+          src={event.image}
+          alt={event.title}
+          width="100%"
+          height="100%"
+          borderTopRadius={8}
+        />
         <Heading>{event.title}</Heading>
-
-        <Image src={event.image} alt={event.title} width="100%" height="100%" />
         <p>
           <b>{event.description}</b>
         </p>
 
-        <Flex direction="column" align="center" gap={1} flexWrap="wrap">
+        <Flex
+          direction="column"
+          align="center"
+          gap={1}
+          flexWrap="wrap"
+          padding={4}
+        >
           <p>📅 {date}</p>
           <p>
             🕑 {start} - {end}
