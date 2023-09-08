@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  Heading,
-  Card,
-  Image,
-  CardFooter,
-  CardBody,
-  CardHeader,
-  Button,
-} from "@chakra-ui/react";
+import { Heading, Image, Button, Flex } from "@chakra-ui/react";
 import { useLoaderData, Link } from "react-router-dom";
 import { UserCard } from "../components/UI/UserCard";
 import { CategoryCard } from "../components/UI/CategoryCard";
@@ -28,33 +20,48 @@ export const EventPage = () => {
   const end = event.endTime.split("T")[1].slice(0, 5);
 
   return (
-    <Card variant="filled" padding={1} size="md" maxW="md" align="center">
-      <CardHeader>
+    <Flex height="100vh" width="100vw" align="center" justify="center">
+      <Flex
+        bg="white"
+        align="center"
+        justify="center"
+        direction="column"
+        maxW="40vw"
+        paddingTop={4}
+        paddingBottom={4}
+        gap={4}
+        borderRadius={10}
+      >
         <Heading>{event.title}</Heading>
-        <p>{date}</p>
-      </CardHeader>
 
-      <CardBody>
-        <Image src={event.image} alt={event.title} boxSize="xs" />
-        <p>{event.description}</p>
-        <br />
-        <p>Start time: {start}</p>
-        <p>End time: {end}</p>
-        <p>Location: {event.location}</p>
-        <br />
-        <CategoryCard event={event} />
-        <UserCard userId={event.createdBy} />
-      </CardBody>
+        <Image src={event.image} alt={event.title} width="100%" height="100%" />
+        <p>
+          <b>{event.description}</b>
+        </p>
 
-      <CardFooter>
-        <Button>Edit</Button>
+        <Flex direction="column" align="center" gap={1} flexWrap="wrap">
+          <p>📅 {date}</p>
+          <p>
+            🕑 {start} - {end}
+          </p>
+          <p>📌 {event.location}</p>
+          <CategoryCard event={event} />
+        </Flex>
 
-        <DeleteEvent event={event} />
+        <Flex padding={2}>
+          <UserCard userId={event.createdBy} />
+        </Flex>
 
-        <Link to="/">
-          <Button>Home</Button>
-        </Link>
-      </CardFooter>
-    </Card>
+        <Flex gap={4}>
+          <Button size="sm">Edit</Button>
+
+          <DeleteEvent event={event} />
+
+          <Link to="/">
+            <Button size="sm">Home</Button>
+          </Link>
+        </Flex>
+      </Flex>
+    </Flex>
   );
 };
