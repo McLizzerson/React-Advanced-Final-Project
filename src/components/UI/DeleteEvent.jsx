@@ -70,7 +70,7 @@ export const DeleteEvent = ({ event }) => {
           <ModalCloseButton />
           <ModalBody>Are you sure you want to delete this event?</ModalBody>
 
-          <ModalFooter>
+          <ModalFooter gap={4}>
             <Link to="/">
               <Button colorScheme="red" onClick={handleDelete}>
                 Delete
