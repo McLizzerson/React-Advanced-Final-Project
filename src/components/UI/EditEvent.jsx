@@ -1,6 +1,6 @@
-import { Form, redirect } from "react-router-dom";
-import { Button, Stack, Input, Select, Heading } from "@chakra-ui/react";
-import { useContext } from "react";
+import { Form, useActionData } from "react-router-dom";
+import { Button, Stack, Input, Select, Heading, Text } from "@chakra-ui/react";
+import { useContext, useState } from "react";
 import { EventsContext } from "../../Context";
 import {
   Modal,
@@ -12,12 +12,9 @@ import {
   ModalCloseButton,
   useDisclosure,
 } from "@chakra-ui/react";
+import { useToast } from "@chakra-ui/react";
 
 export const action = async ({ request, params }) => {
-  console.log(`what are the params?`);
-  console.log(params);
-  console.log(params.eventId);
-
   const formData = Object.fromEntries(await request.formData());
   const response = await fetch(
     `http://localhost:3000/events/${params.eventId}`,
@@ -27,31 +24,100 @@ export const action = async ({ request, params }) => {
       headers: { "Content-Type": "application/json" },
     }
   );
-
-  const json = await response.json();
-  console.log(json);
-
-  return redirect(`/event/${params.eventId}`);
+  return response.status;
 };
 
 export const EditEvent = ({ event }) => {
+  const [sentToast, setSentToast] = useState(false);
+  const [status, setStatus] = useState(undefined);
+  let toast = useToast();
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { users, categories } = useContext(EventsContext);
+  let response;
+
+  // Sending toast
+  const sendingToast = () => {
+    console.log(`response start of sendingtoast ${response}`);
+    response = useActionData();
+
+    // take out the extra toast when editing for a second or third time
+    // if response is equal to the previous response it won't send a toast
+    // only once the sentToast is back to false again which happens when the submit button is pushed.
+    // however you can push and not change and it will still give a succes message without really changing anything.
+    if (response != status || sentToast === false) {
+      console.log(`response is: ${response}`);
+
+      switch (response) {
+        case 200:
+          toast({
+            title: "Success!",
+            description: "Your event was updated succesfully",
+            status: "success",
+            duration: 1850,
+            isClosable: true,
+          });
+          setSentToast(true);
+          setStatus(response);
+          break;
+        case 404:
+          toast({
+            title: "Oops",
+            description: `The event you tried to update cannot be found ${response} `,
+            status: "error",
+            duration: 1850,
+            isClosable: true,
+          });
+          setSentToast(true);
+          setStatus(response);
+          break;
+        case undefined:
+          break;
+        default:
+          toast({
+            title: "Woah",
+            description: `Something happened! Not sure what "${response}" means though...`,
+            status: "warning",
+            duration: 1850,
+            isClosable: true,
+          });
+          setSentToast(true);
+          setStatus(response);
+      }
+    }
+  };
+
+  sendingToast();
 
   return (
     <>
-      <Button onClick={onOpen}>TEST TEST TEST</Button>
+      <Button
+        size="sm"
+        onClick={() => {
+          onOpen();
+        }}
+      >
+        Edit
+      </Button>
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>
-            <Heading>Edit Event</Heading>
+            <Heading align="center">Edit Event</Heading>
           </ModalHeader>
           <ModalCloseButton />
 
           <ModalBody>
-            Change the information you want below.
+            <Text align="center">
+              Change the information you want below.
+              <br />
+              <b>
+                📢 Select a category AND a user or else your changes will not be
+                made!
+              </b>
+            </Text>
+
             <Form method="patch" id="edit-event-form">
               <Stack spacing={3}>
                 <Input
@@ -131,8 +197,14 @@ export const EditEvent = ({ event }) => {
                   })}
                 </Select>
               </Stack>
-
-              <Button type="submit" variant="ghost">
+              <Button
+                type="submit"
+                variant="ghost"
+                onClick={() => {
+                  onClose();
+                  setSentToast(false);
+                }}
+              >
                 Submit
               </Button>
             </Form>
