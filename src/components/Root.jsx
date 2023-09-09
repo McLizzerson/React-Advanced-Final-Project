@@ -26,7 +26,7 @@ export const Root = () => {
       bgAttachment="fixed"
       bgPosition="center"
     >
-      {/* <Navigation /> */}
+      <Navigation />
       <EventsContext.Provider value={{ users, categories }}>
         <Outlet />
       </EventsContext.Provider>
