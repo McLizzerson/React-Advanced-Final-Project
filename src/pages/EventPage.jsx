@@ -4,6 +4,7 @@ import { useLoaderData, Link } from "react-router-dom";
 import { UserCard } from "../components/UI/UserCard";
 import { CategoryCard } from "../components/UI/CategoryCard";
 import { DeleteEvent } from "../components/UI/DeleteEvent";
+import { EditEvent } from "../components/UI/EditEvent";
 
 export const loader = async ({ params }) => {
   const event = await fetch(`http://localhost:3000/events/${params.eventId}`);
@@ -26,7 +27,7 @@ export const EventPage = () => {
         align="center"
         justify="center"
         direction="column"
-        maxW="40vw"
+        maxW="30vw"
         paddingBottom={4}
         gap={4}
         borderRadius={10}
@@ -63,7 +64,7 @@ export const EventPage = () => {
         </Flex>
 
         <Flex gap={4}>
-          <Button size="sm">Edit</Button>
+          <EditEvent event={event} />
 
           <DeleteEvent event={event} />
 
