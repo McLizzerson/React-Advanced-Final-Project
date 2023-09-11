@@ -1,5 +1,5 @@
 import React from "react";
-import { Heading, Image, Button, Flex } from "@chakra-ui/react";
+import { Heading, Image, Button, Flex, Box } from "@chakra-ui/react";
 import { useLoaderData, Link } from "react-router-dom";
 import { UserCard } from "../components/UI/UserCard";
 import { CategoryCard } from "../components/UI/CategoryCard";
@@ -27,6 +27,7 @@ export const EventPage = () => {
         align="center"
         justify="center"
         direction="column"
+        minWidth="280px"
         maxW="30vw"
         paddingBottom={4}
         gap={4}
@@ -63,14 +64,15 @@ export const EventPage = () => {
           <UserCard userId={event.createdBy} />
         </Flex>
 
-        <Flex gap={4}>
+        <Flex gap={4} flexWrap="wrap" justifyContent="center">
           <EditEvent event={event} />
+          <Flex gap={4}>
+            <DeleteEvent event={event} />
 
-          <DeleteEvent event={event} />
-
-          <Link to="/">
-            <Button size="sm">Home</Button>
-          </Link>
+            <Link to="/">
+              <Button size="sm">Home</Button>
+            </Link>
+          </Flex>
         </Flex>
       </Flex>
     </Flex>
