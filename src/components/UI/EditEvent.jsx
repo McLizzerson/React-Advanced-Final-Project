@@ -14,6 +14,7 @@ import {
 } from "@chakra-ui/react";
 import { useToast } from "@chakra-ui/react";
 
+// Send request to edit event
 export const action = async ({ request, params }) => {
   const formData = Object.fromEntries(await request.formData());
   const response = await fetch(
@@ -28,26 +29,17 @@ export const action = async ({ request, params }) => {
 };
 
 export const EditEvent = ({ event }) => {
-  const [sentToast, setSentToast] = useState(false);
-  const [status, setStatus] = useState(undefined);
-  let toast = useToast();
-
+  const [succesfulUpdate, setSuccesfulUpdate] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { users, categories } = useContext(EventsContext);
-  let response;
+  const response = useActionData();
+  const toast = useToast();
+  const refreshpage = () => {
+    window.location.reload(false);
+  };
 
-  // Sending toast
   const sendingToast = () => {
-    console.log(`response start of sendingtoast ${response}`);
-    response = useActionData();
-
-    // take out the extra toast when editing for a second or third time
-    // if response is equal to the previous response it won't send a toast
-    // only once the sentToast is back to false again which happens when the submit button is pushed.
-    // however you can push and not change and it will still give a succes message without really changing anything.
-    if (response != status || sentToast === false) {
-      console.log(`response is: ${response}`);
-
+    if (succesfulUpdate === false) {
       switch (response) {
         case 200:
           toast({
@@ -57,8 +49,7 @@ export const EditEvent = ({ event }) => {
             duration: 1850,
             isClosable: true,
           });
-          setSentToast(true);
-          setStatus(response);
+          setSuccesfulUpdate(true);
           break;
         case 404:
           toast({
@@ -68,8 +59,6 @@ export const EditEvent = ({ event }) => {
             duration: 1850,
             isClosable: true,
           });
-          setSentToast(true);
-          setStatus(response);
           break;
         case undefined:
           break;
@@ -81,8 +70,6 @@ export const EditEvent = ({ event }) => {
             duration: 1850,
             isClosable: true,
           });
-          setSentToast(true);
-          setStatus(response);
       }
     }
   };
@@ -90,15 +77,27 @@ export const EditEvent = ({ event }) => {
   sendingToast();
 
   return (
+    // Switch edit button to refresh to empty out actiondata
     <>
-      <Button
-        size="sm"
-        onClick={() => {
-          onOpen();
-        }}
-      >
-        Edit
-      </Button>
+      {succesfulUpdate ? (
+        <Button
+          size="sm"
+          onClick={() => {
+            refreshpage();
+          }}
+        >
+          Refresh to make another edit
+        </Button>
+      ) : (
+        <Button
+          size="sm"
+          onClick={() => {
+            onOpen();
+          }}
+        >
+          Edit
+        </Button>
+      )}
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
@@ -196,17 +195,16 @@ export const EditEvent = ({ event }) => {
                     );
                   })}
                 </Select>
+                <Button
+                  type="submit"
+                  variant="ghost"
+                  onClick={() => {
+                    onClose();
+                  }}
+                >
+                  Submit
+                </Button>
               </Stack>
-              <Button
-                type="submit"
-                variant="ghost"
-                onClick={() => {
-                  onClose();
-                  setSentToast(false);
-                }}
-              >
-                Submit
-              </Button>
             </Form>
           </ModalBody>
 
