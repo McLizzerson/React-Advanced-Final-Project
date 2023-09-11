@@ -1,4 +1,4 @@
-import { Card, Heading, Image } from "@chakra-ui/react";
+import { Card, Flex, Heading, Image, Text, Wrap } from "@chakra-ui/react";
 import { CategoryCard } from "./CategoryCard";
 
 export const EventCard = ({ event }) => {
@@ -14,7 +14,10 @@ export const EventCard = ({ event }) => {
         borderTopRadius={6}
       />
       <Heading padding={4}>{event.title}</Heading>
-      <p>{event.description}</p>
+      <Flex maxWidth="xs" wrap="wrap">
+        <Text align="center"> {event.description}</Text>
+      </Flex>
+
       <br />
       <p>📅 {date}</p>
       <p>
