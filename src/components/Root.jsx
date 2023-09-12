@@ -1,7 +1,7 @@
 import React from "react";
 import { Outlet, useLoaderData } from "react-router-dom";
 import { Navigation } from "./Navigation";
-import { Box, Flex } from "@chakra-ui/react";
+import { Flex, Heading } from "@chakra-ui/react";
 import { EventsContext } from "../Context";
 import "@fontsource/pacifico";
 import "@fontsource/open-sans";
@@ -25,7 +25,21 @@ export const Root = () => {
       bgRepeat="no-repeat"
       bgAttachment="fixed"
       bgPosition="center"
+      zIndex={-1}
     >
+      <Heading
+        fontSize="8xl"
+        color="white"
+        textAlign="left"
+        padding={4}
+        position="fixed"
+        bottom="20px"
+        zIndex={0}
+        width="450px"
+      >
+        Find something fun to do!
+      </Heading>
+
       <Navigation />
       <EventsContext.Provider value={{ users, categories }}>
         <Outlet />
