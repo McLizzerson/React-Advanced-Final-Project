@@ -34,7 +34,7 @@ export const DeleteEvent = ({ event }) => {
           title: "Success!",
           description: "Your event was deleted succesfully",
           status: "success",
-          duration: 3000,
+          duration: 2000,
           isClosable: true,
         });
         break;
@@ -43,7 +43,7 @@ export const DeleteEvent = ({ event }) => {
           title: "Oops",
           description: `The event you tried to delete cannot be found ${status} `,
           status: "error",
-          duration: 3000,
+          duration: 2000,
           isClosable: true,
         });
         break;
@@ -52,7 +52,7 @@ export const DeleteEvent = ({ event }) => {
           title: "Woah",
           description: `Something happened! Not sure what "${status}" means though...`,
           status: "warning",
-          duration: 3000,
+          duration: 2000,
           isClosable: true,
         });
     }
