@@ -1,5 +1,5 @@
 import React from "react";
-import { Heading, Image, Button, Flex, Box } from "@chakra-ui/react";
+import { Heading, Image, Button, Flex, Text } from "@chakra-ui/react";
 import { useLoaderData, Link } from "react-router-dom";
 import { UserCard } from "../components/UI/UserCard";
 import { CategoryCard } from "../components/UI/CategoryCard";
@@ -32,6 +32,7 @@ export const EventPage = () => {
         paddingBottom={4}
         gap={4}
         borderRadius={10}
+        zIndex={1}
       >
         <Image
           src={event.image}
@@ -41,9 +42,7 @@ export const EventPage = () => {
           borderTopRadius={8}
         />
         <Heading>{event.title}</Heading>
-        <p>
-          <b>{event.description}</b>
-        </p>
+        <Text fontWeight="bold">{event.description}</Text>
 
         <Flex
           direction="column"
@@ -52,11 +51,11 @@ export const EventPage = () => {
           flexWrap="wrap"
           padding={4}
         >
-          <p>📅 {date}</p>
-          <p>
+          <Text>📅 {date}</Text>
+          <Text>
             🕑 {start} - {end}
-          </p>
-          <p>📌 {event.location}</p>
+          </Text>
+          <Text align="center">📌 {event.location}</Text>
           <CategoryCard event={event} />
         </Flex>
 
