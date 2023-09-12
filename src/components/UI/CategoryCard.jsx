@@ -5,7 +5,7 @@ import { Flex, Tag } from "@chakra-ui/react";
 export const CategoryCard = ({ event }) => {
   const { categories } = useContext(EventsContext);
 
-  // Convert categoryId from added events to a number and push them to an array to keep the data in the same format
+  // Convert categoryId to keep same format
   let eventCategoryIdList = [];
   if (typeof event.categoryIds === "string") {
     eventCategoryIdList.push(Number(event.categoryIds));
@@ -13,7 +13,7 @@ export const CategoryCard = ({ event }) => {
     eventCategoryIdList = event.categoryIds;
   }
 
-  // Retrieve matching category names for the id's so we can display them later
+  // Retrieve matching category names
   let categoryList = [];
   eventCategoryIdList.map((id) => {
     categories.map((category) => {
