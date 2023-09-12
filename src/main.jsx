@@ -5,7 +5,6 @@ import { EventPage, loader as eventLoader } from "./pages/EventPage";
 import { EventsPage, loader as eventsLoader } from "./pages/EventsPage";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Root, loader as contextLoader } from "./components/Root";
-// import { AddEvent } from "./components/UI/AddEvent";
 import { NewEvent, action as newEvent } from "./components/UI/NewEvent";
 import { EditEvent, action as editEvent } from "./components/UI/EditEvent";
 import theme from "./components/Theme";
