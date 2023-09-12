@@ -1,4 +1,4 @@
-import { Card, Flex, Heading, Image, Text, Wrap } from "@chakra-ui/react";
+import { Card, Flex, Heading, Image, Text } from "@chakra-ui/react";
 import { CategoryCard } from "./CategoryCard";
 
 export const EventCard = ({ event }) => {
