@@ -76,6 +76,16 @@ export const EditEvent = ({ event }) => {
 
   sendingToast();
 
+  // Format dates in events.json before editing
+  const massageDates = (date) => {
+    const dateJson = JSON.stringify(date);
+    if (dateJson.includes("00.000Z")) {
+      return String(date.slice(0, -8));
+    } else {
+      return date;
+    }
+  };
+
   return (
     // Switch edit button to refresh to empty out actiondata
     <>
@@ -146,7 +156,7 @@ export const EditEvent = ({ event }) => {
                   placeholder="Start time"
                   name="startTime"
                   required="required"
-                  defaultValue={event.startTime}
+                  defaultValue={massageDates(event.startTime)}
                 />
                 <Input
                   type="datetime-local"
@@ -154,7 +164,7 @@ export const EditEvent = ({ event }) => {
                   placeholder="End time"
                   name="endTime"
                   required="required"
-                  defaultValue={event.endTime}
+                  defaultValue={massageDates(event.endTime)}
                 />
                 <Input
                   placeholder="Location"
