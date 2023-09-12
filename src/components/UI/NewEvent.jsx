@@ -15,6 +15,7 @@ import { EventsContext } from "../../Context";
 import { useActionData } from "react-router-dom";
 import { useToast } from "@chakra-ui/react";
 
+// Send request to add event
 export const action = async ({ request }) => {
   const formData = Object.fromEntries(await request.formData());
   const response = await fetch("http://localhost:3000/events", {
@@ -37,13 +38,19 @@ export const NewEvent = () => {
   const { users, categories } = useContext(EventsContext);
   const toast = useToast();
 
-  // use data from POST request to send toast and create id to redirect
+  // use data from POST request for status and newId
   const response = useActionData();
   let id;
   if (response != undefined) {
     id = response.id;
   }
 
+  let status;
+  if (response != undefined) {
+    status = response.status;
+  }
+
+  // Send toast if there is a response and a toast has not been sent yet
   if (response != undefined && sentToast === false) {
     const status = response.status;
     switch (status) {
@@ -52,7 +59,7 @@ export const NewEvent = () => {
           title: "Success!",
           description: `You're event was added succesfully`,
           status: "success",
-          duration: 1850,
+          duration: 2000,
           isClosable: true,
         });
         setSentToast(true);
@@ -62,14 +69,12 @@ export const NewEvent = () => {
           title: "Woah",
           description: `Something happened! Not sure what "${status}" means though...`,
           status: "warning",
-          duration: 1850,
+          duration: 2000,
           isClosable: true,
         });
         setSentToast(true);
     }
   }
-
-  console.log(`response is: ${response}`);
 
   return (
     <Flex height="100vh" width="100vw" align="center" justify="center">
@@ -78,8 +83,8 @@ export const NewEvent = () => {
           <Heading>Create a new event 🎉</Heading>
         </CardHeader>
 
-        {/* Adding a button to the page when an event has been added succesfully to navigate to the evenlist page */}
-        {id !== undefined && (
+        {/* Add button after adding an event succesfully, to direct to event page */}
+        {status === 201 && (
           <Flex justify="center">
             <Link to={`/event/${id}`}>
               <Button size="lg" color="green.500">
@@ -160,7 +165,8 @@ export const NewEvent = () => {
                 );
               })}
             </Select>
-            {response === undefined && (
+            {/* Hide submit button after adding an event succesfully to prevent multiple adds */}
+            {status != 201 && (
               <Button type="submit" variant="ghost">
                 Submit
               </Button>
