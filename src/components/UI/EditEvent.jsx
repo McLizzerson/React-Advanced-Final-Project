@@ -38,43 +38,39 @@ export const EditEvent = ({ event }) => {
     window.location.reload(false);
   };
 
-  const sendingToast = () => {
-    if (succesfulUpdate === false) {
-      switch (response) {
-        case 200:
-          toast({
-            title: "Success!",
-            description: "Your event was updated succesfully",
-            status: "success",
-            duration: 1850,
-            isClosable: true,
-          });
-          setSuccesfulUpdate(true);
-          break;
-        case 404:
-          toast({
-            title: "Oops",
-            description: `The event you tried to update cannot be found ${response} `,
-            status: "error",
-            duration: 1850,
-            isClosable: true,
-          });
-          break;
-        case undefined:
-          break;
-        default:
-          toast({
-            title: "Woah",
-            description: `Something happened! Not sure what "${response}" means though...`,
-            status: "warning",
-            duration: 1850,
-            isClosable: true,
-          });
-      }
+  if (succesfulUpdate === false && response != undefined) {
+    switch (response) {
+      case 200:
+        toast({
+          title: "Success!",
+          description: "Your event was updated succesfully",
+          status: "success",
+          duration: 2000,
+          isClosable: true,
+        });
+        setSuccesfulUpdate(true);
+        break;
+      case 404:
+        toast({
+          title: "Oops",
+          description: `The event you tried to update cannot be found ${response} `,
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+        });
+        break;
+      case undefined:
+        break;
+      default:
+        toast({
+          title: "Woah",
+          description: `Something happened! Not sure what "${response}" means though...`,
+          status: "warning",
+          duration: 2000,
+          isClosable: true,
+        });
     }
-  };
-
-  sendingToast();
+  }
 
   // Format dates in events.json before editing
   const massageDates = (date) => {
@@ -87,7 +83,7 @@ export const EditEvent = ({ event }) => {
   };
 
   return (
-    // Switch edit button to refresh to empty out actiondata
+    // Switch edit button from edit to refresh, to reset actiondata and prevent wrongful toasts
     <>
       {succesfulUpdate ? (
         <Button
